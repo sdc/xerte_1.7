@@ -3,7 +3,7 @@
 require_once("config.php");
 
 /**
- * 
+ *
  * Login page, self posts to become management page
  *
  * @author Patrick Lockley
@@ -26,7 +26,7 @@ $errors = array();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // both empty?
-    if(empty($_POST['login']) && empty($_POST['password'])) { 
+    if(empty($_POST['login']) && empty($_POST['password'])) {
         $errors[] = "<p>Please enter your username and password</p>";
     }
     elseif(empty($_POST["login"])) { // empty login
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     elseif(empty($_POST["password"])) { // empty password
         $errors[] = "<p>Please enter your password</p>";
-    } 
+    }
     elseif(!empty($_POST["login"]) && !empty($_POST["password"])) {
         // try and authenticate the user
         if( ($_POST["login"] != $xerte_toolkits_site->admin_username) && (stripslashes($_POST["password"]) != $xerte_toolkits_site->admin_password) ) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             require_once $xerte_toolkits_site->php_library_path . "user_library.php";
 
-            $mysql_id=database_connect("index.php database connect success","index.php database connect fail");	
+            $mysql_id=database_connect("index.php database connect success","index.php database connect fail");
 
             $_SESSION['toolkits_logon_username'] = $_POST["login"];
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(check_if_first_time($_SESSION['toolkits_logon_username'])){
 
                 /*
-                 *	create the user a new id			
+                 *  create the user a new id
                  */
 
                 $_SESSION['toolkits_logon_id'] = create_user_id($_SESSION['toolkits_logon_username'], $_SESSION['toolkits_firstname'], $_SESSION['toolkits_surname']);
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                  *   create a virtual root folder for this user
                  */
 
-                create_a_virtual_root_folder();			
+                create_a_virtual_root_folder();
 
             }else{
 
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             }
 
-            recycle_bin();		
+            recycle_bin();
 
             /*
              * Output the main page, including the user's and blank templates
@@ -144,5 +144,18 @@ $buffer .= login_page_format_bottom(file_get_contents($xerte_toolkits_site->root
 
 echo $buffer;
 ?>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1183265-30']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
 </body>
 </html>
